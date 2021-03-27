@@ -1,0 +1,117 @@
+##########################################################
+##### Painless: a Framework for Parallel SAT Solving #####
+##########################################################
+
+
+Contact: ludovic@lrde.epita.fr
+Website: painless.lrde.epita.fr
+
+
+===== Content =====
+
+- painless-src:
+   Contains the code of the framework
+   - clauses:
+      Contains the code to manage shared clauses.
+   - working:
+      Code links to the worker organization.
+   - sharing:
+      Code links to the learnt clause sharing management.
+   - solvers:
+      Contains wrapper for the sequential solvers.
+   - utils:
+      Contains code for clauses management. But also useful data structures.
+
+- documents:
+   Contains documentation about the framework.
+   Only if it has been compiled.
+
+- glucose:
+   Contains the code of glucose 4 with some little changes.
+
+- lingeling:
+   Contains the code of lingeling with some little changes.
+
+- mapleCOMSPS:
+   Contains the code of mapleCOMSPS with some little changes.
+
+- minisat:
+   Contains the code of minisat with some little changes.
+
+
+===== To compile the project =====
+
+- In the PaInleSS home directory use 'make' to compile.
+
+- In the PaInleSS home directory use 'make docs' to compile the documentation.
+
+- In the PaInleSS home directory use 'make clean' to clean.
+
+
+===== Some PaInleSS configurations =====
+
+- P-Syrup : -solver=glucose -shr-sleep=500000 -shr-strat=1 -d=4
+
+- P-HordeSat : -solver=lingeling -d=7 -shr-sleep=1500000 -shr-lit=1500
+               -shr-strat=2
+
+- P-Treengeling : -solver=lingeling -shr-strat=1 -lbd-limit=-1 -shr-sleep=500000
+                  -wkr-strat=2
+
+- P-REUSE-VSIDS : -solver=maple -shr-strat=1 -lbd-limit=4 -wkr-strat=4
+                  -split-heur=1 -copy-mode=1
+
+- P-REUSE-FLIPS : -solver=maple -shr-strat=1 -lbd-limit=4 -wkr-strat=4
+                  -split-heur=2 -copy-mode=1
+
+- P-REUSE-PR : -solver=maple -shr-strat=1 -lbd-limit=4 -wkr-strat=4
+               -split-heur=3 -copy-mode=1
+
+- P-CLONE-VSIDS : -solver=maple -shr-strat=1 -lbd-limit=4 -wkr-strat=4
+                  -split-heur=1 -copy-mode=2
+
+- P-CLONE-FLIPS : -solver=maple -shr-strat=1 -lbd-limit=4 -wkr-strat=4
+                  -split-heur=2 -copy-mode=2
+
+- P-CLONE-PR : -solver=maple -shr-strat=1 -lbd-limit=4 -wkr-strat=4
+               -split-heur=3 -copy-mode=2
+
+
+==== References ====
+
+- General reference:
+
+@inproceedings{le-frioux.17.sat,
+   author    = {Ludovic {Le Frioux} and Souheib Baarir and Julien Sopena and
+               Fabrice Kordon},
+   title     = {{Painless}: a Framework for Parallel {SAT} Solving},
+   booktitle = {Proceedings of the 20th International Conference on Theory and
+               Applications of Satisfiability Testing (SAT)},
+   year      = 2017,
+   pages     = {233--250},
+   series    = {Lecture Notes in Computer Science},
+   publisher = {Springer}
+}
+
+- Divide-and-conquer component reference:
+
+@inproceedings{le-frioux.19.tacas,
+  author    = {Ludovic {Le Frioux} and Souheib Baarir and Julien Sopena and
+              Fabrice Kordon},
+  title     = {Modular and Efficient Divide-and-Conquer {SAT} Solver on Top of
+              the {Painless} Framework},
+  booktitle = {Proceedings of the 25th International Conference on Tools and
+              Algorithms for the Construction and Analysis of Systems (TACAS)},
+  year      = 2019,
+  pages     = {135--151},
+  series    = {Lecture Notes in Computer Science},
+  publisher = {Springer}
+}
+
+
+==== List of contributors ====
+
+Antoine   GALICE
+Alexandre LAVIGNE
+Ludovic   LE FRIOUX
+Vincent   VALLADE
