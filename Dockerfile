@@ -33,6 +33,7 @@ COPY --from=builder /painless-v2 /painless-v2
 ADD make_combined_hostfile.py supervised-scripts/make_combined_hostfile.py
 RUN chmod 755 supervised-scripts/make_combined_hostfile.py
 ADD mpi-run.sh supervised-scripts/mpi-run.sh
+RUN chmod 755 supervised-scripts/mpi-run.sh
 USER dpainless
 CMD ["/usr/sbin/sshd", "-D", "-f", "/home/dpainless/.ssh/sshd_config"]
 CMD supervised-scripts/mpi-run.sh
