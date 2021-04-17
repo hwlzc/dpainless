@@ -1,7 +1,7 @@
 ################
 FROM ubuntu:16.04 AS dpainless_base
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt install -y openssh-server iproute2 openmpi-bin openmpi-common iputils-ping \
+    && DEBIAN_FRONTEND=noninteractive apt install -y openssh-server iproute2 openmpi-bin openmpi-common iputils-ping bzip2 xz-utils \
     && mkdir /var/run/sshd \
     && sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd \
     && setcap CAP_NET_BIND_SERVICE=+eip /usr/sbin/sshd \
