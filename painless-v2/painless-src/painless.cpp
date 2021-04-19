@@ -173,11 +173,11 @@ int main(int argc, char ** argv)
          break;
 
       case 6 :
-         SolverFactory::sparseRandomDiversification(solvers);
+         SolverFactory::sparseRandomDiversification(solvers, mpiRank, mpiSize);
          break;
 
       case 7 :
-         SolverFactory::sparseRandomDiversification(solvers);
+         SolverFactory::sparseRandomDiversification(solvers, mpiRank, mpiSize);
          SolverFactory::nativeDiversification(solvers, mpiRank);
          break;
 

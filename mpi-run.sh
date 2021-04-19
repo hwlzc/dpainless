@@ -75,9 +75,9 @@ wait_for_nodes () {
   cat combined_hostfile
   node_num=$(cat combined_hostfile|wc -l)
   np=$((node_num*4))
-  log "======run cmd= mpirun --mca btl_tcp_if_include eth0 --allow-run-as-root  --hostfile combined_hostfile --map-by node -np ${np} /painless-v2/painless  -t=1000 -d=5 -c=5 -wkr-strat=6 -lbd-limit=3 -solver=maple -shr-strat=5 -shr-group=10 test.cnf "
+  log "======run cmd: time mpirun --mca btl_tcp_if_include eth0 --allow-run-as-root  --hostfile combined_hostfile -map-by node -np ${np} /painless-v2/painless -d=7 -c=4 -wkr-strat=6 -lbd-limit=2 -solver=maple -shr-strat=5 -shr-group=20 test.cnf"
   # REPLACE THE FOLLOWING LINE WITH YOUR PARTICULAR SOLVER
-  time mpirun --mca btl_tcp_if_include eth0 --allow-run-as-root  --hostfile combined_hostfile --map-by node -np ${np} /painless-v2/painless  -t=1000 -d=5 -c=4 -wkr-strat=6 -lbd-limit=2 -solver=maple -shr-strat=5 -shr-group=10 test.cnf
+  time mpirun --mca btl_tcp_if_include eth0 --allow-run-as-root  --hostfile combined_hostfile -map-by node -np ${np} /painless-v2/painless -d=7 -c=4 -wkr-strat=6 -lbd-limit=2 -solver=maple -shr-strat=5 -shr-group=20 test.cnf
 }
 
 # Fetch and run a script
