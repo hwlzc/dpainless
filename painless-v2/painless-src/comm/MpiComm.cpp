@@ -162,7 +162,9 @@ SatResult MpiComm::receiveIncomingMsg()
         MPI_Iprobe(MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &received, &s);
         if (received)
         {
-            switch (s.MPI_TAG)
+            int tag = s.MPI_TAG;
+            if (globalEnding) tag = -1;
+            switch (tag)
             {
             case REPORT_TAG:
             {
@@ -296,11 +298,12 @@ void MpiComm::updateWorkingStatus()
 
     // Bcast stop message
     log(1, "Root broadcasts result %d to the all ranks\n", res);
+    MPI_Request requests[size - 1];
     for (int i = 1; i < size; i++)
     {
-        MPI_Request req;
-        MPI_Isend(&res, 1, MPI_INT, i, STOP_TAG, MPI_COMM_WORLD, &req);
+        MPI_Isend(&res, 1, MPI_INT, i, STOP_TAG, MPI_COMM_WORLD, &requests[i - 1]);
     }
+    MPI_Waitall(size - 1, requests, MPI_STATUSES_IGNORE);
 }
 
 void MpiComm::reportResult(SatResult currRes, const vector<int> &model)
@@ -317,6 +320,7 @@ void MpiComm::reportResult(SatResult currRes, const vector<int> &model)
     modelBuf[0] = currRes;
     log(1, "Rank %d is the winner, reports result % d to the root\n ", rank, currRes);
     MPI_Send(modelBuf, length + 1, MPI_INT, 0, REPORT_TAG, MPI_COMM_WORLD);
+    free(modelBuf);
 }
 
 void MpiComm::sendAssumption(const vector<int> &assumption, int targetRank)

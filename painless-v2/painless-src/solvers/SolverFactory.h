@@ -36,59 +36,58 @@ class SolverFactory
 {
 public:
    /// Instantiate and return a Minisat solver.
-   static SolverInterface * createMiniSatSolver();
+   static SolverInterface *createMiniSatSolver();
 
    /// Instantiate and return a Glucose solver.
-   static SolverInterface * createGlucoseSolver();
+   static SolverInterface *createGlucoseSolver();
 
    /// Instantiate and return a Lingeling solver.
-   static SolverInterface * createLingelingSolver();
+   static SolverInterface *createLingelingSolver();
 
    /// Instantiate and return a Maple solver.
-   static SolverInterface * createMapleSolver();
+   static SolverInterface *createMapleSolver();
 
    /// Instantiate and return a group of Minisat solvers.
    static void createMiniSatSolvers(int groupSize, int mpiRank,
-                                    vector<SolverInterface *> & solvers);
+                                    vector<SolverInterface *> &solvers);
 
    /// Instantiate and return a group of Glucose solvers.
    static void createGlucoseSolvers(int groupeSize, int mpiRank,
-                                    vector<SolverInterface *> & solvers);
+                                    vector<SolverInterface *> &solvers);
 
    /// Instantiate and return a group of Lingeling solvers.
    static void createLingelingSolvers(int groupeSize, int mpiRank,
-                                      vector<SolverInterface *> & solvers);
+                                      vector<SolverInterface *> &solvers);
 
    /// Instantiate and return a group of Maple solvers.
    static void createMapleSolvers(int groupSize, int mpiRank,
-                                    vector<SolverInterface *> & solvers);
+                                  vector<SolverInterface *> &solvers);
 
    /// Instantiate and return a melted group of solvers.
    static void createComboSolvers(int groupeSize, int mpiRank,
-                                  vector<SolverInterface *> & solvers);
+                                  vector<SolverInterface *> &solvers);
 
    /// Clone and return a new solver.
-   static SolverInterface * cloneSolver(SolverInterface * other);
+   static SolverInterface *cloneSolver(SolverInterface *other);
 
    /// Print stats of a groupe of solvers.
-   static void printStats(const vector<SolverInterface *> & solvers);
+   static void printStats(const vector<SolverInterface *> &solvers);
 
    /// Apply a sparse diversification on solvers.
-   static void sparseDiversification(const vector<SolverInterface *> & solvers,
+   static void sparseDiversification(const vector<SolverInterface *> &solvers,
                                      int mpiRank, int mpiSize);
 
    /// Apply a random diversification on solvers.
-   static void randomDiversification(const vector<SolverInterface *> & solvers,
+   static void randomDiversification(const vector<SolverInterface *> &solvers,
                                      unsigned int seed);
 
    /// Apply a sparse and random diversification on solvers.
-   static void sparseRandomDiversification(const
-                                           vector<SolverInterface *> & solvers);
+   static void sparseRandomDiversification(const vector<SolverInterface *> &solvers,
+                                     int mpiRank, int mpiSize);
 
    /// Apply a native diversification on solvers.
-   static void nativeDiversification(const vector<SolverInterface *> & solvers, int mpiRank);
+   static void nativeDiversification(const vector<SolverInterface *> &solvers, int mpiRank);
 
    /// Apply a binary value diversification on solvers.
-   static void binValueDiversification(const
-                                       vector<SolverInterface *> & solvers);
+   static void binValueDiversification(const vector<SolverInterface *> &solvers);
 };

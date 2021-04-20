@@ -1,7 +1,7 @@
 ################
 FROM ubuntu:16.04 AS dpainless_base
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt install -y openssh-server iproute2 openmpi-bin openmpi-common iputils-ping \
+    && DEBIAN_FRONTEND=noninteractive apt install -y openssh-server iproute2 openmpi-bin openmpi-common iputils-ping bzip2 xz-utils \
     && mkdir /var/run/sshd \
     && sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd \
     && setcap CAP_NET_BIND_SERVICE=+eip /usr/sbin/sshd \
@@ -33,6 +33,7 @@ COPY --from=builder /painless-v2 /painless-v2
 ADD make_combined_hostfile.py supervised-scripts/make_combined_hostfile.py
 RUN chmod 755 supervised-scripts/make_combined_hostfile.py
 ADD mpi-run.sh supervised-scripts/mpi-run.sh
+RUN chmod 755 supervised-scripts/mpi-run.sh
 USER dpainless
 CMD ["/usr/sbin/sshd", "-D", "-f", "/home/dpainless/.ssh/sshd_config"]
 CMD supervised-scripts/mpi-run.sh

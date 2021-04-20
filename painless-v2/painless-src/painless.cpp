@@ -173,11 +173,11 @@ int main(int argc, char ** argv)
          break;
 
       case 6 :
-         SolverFactory::sparseRandomDiversification(solvers);
+         SolverFactory::sparseRandomDiversification(solvers, mpiRank, mpiSize);
          break;
 
       case 7 :
-         SolverFactory::sparseRandomDiversification(solvers);
+         SolverFactory::sparseRandomDiversification(solvers, mpiRank, mpiSize);
          SolverFactory::nativeDiversification(solvers, mpiRank);
          break;
 
@@ -315,7 +315,8 @@ int main(int argc, char ** argv)
          MpiComm::getInstance()->receiveIncomingMsg();
          
          // Inter-process clause sharing
-         MpiComm::getInstance()->exportLearnedClauses();
+         if (globalEnding == false)
+            MpiComm::getInstance()->exportLearnedClauses();
       }
    });
 
@@ -383,11 +384,11 @@ int main(int argc, char ** argv)
    // Delete shared clauses
    ClauseManager::joinClauseManager();
 
+   commThread.join();
+   
    // Clean MPI buffer and finalize MPI
    MpiComm::getInstance()->cleanReceivingBuffer();
    MPI_Finalize();
-
-   commThread.join();
 
    // MPI will show warnings if non-zero value is returned
    return 0;

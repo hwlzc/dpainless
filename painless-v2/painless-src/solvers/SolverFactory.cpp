@@ -49,15 +49,16 @@ SolverFactory::randomDiversification(const vector<SolverInterface *> & solvers,
 }
 
 void
-SolverFactory::sparseRandomDiversification(const vector<SolverInterface *> & solvers)
+SolverFactory::sparseRandomDiversification(const vector<SolverInterface *> & solvers, int mpiRank, int mpiSize)
 {
    int vars = solvers[0]->getVariablesCount();
-
+   int totalSize = mpiSize * solvers.size();
    for (int sid = 0; sid < solvers.size(); sid++) {
       srand(sid);
-      for (int var = 1; var <= vars; var++) {
+      int shift = (mpiRank * solvers.size()) + sid;
+      for (int var = 1; var + totalSize < vars; var += totalSize) {
          if (rand() % solvers.size() == 0) {
-            solvers[sid]->setPhase(var, rand() % 2 == 1);
+            solvers[sid]->setPhase(var + shift, rand() % 2 == 1);
          }
       }
    }
