@@ -320,7 +320,7 @@ void MpiComm::reportResult(SatResult currRes, const vector<int> &model)
     modelBuf[0] = currRes;
     log(1, "Rank %d is the winner, reports result % d to the root\n ", rank, currRes);
     MPI_Send(modelBuf, length + 1, MPI_INT, 0, REPORT_TAG, MPI_COMM_WORLD);
-    delete modelBuf;
+    free(modelBuf);
 }
 
 void MpiComm::sendAssumption(const vector<int> &assumption, int targetRank)
